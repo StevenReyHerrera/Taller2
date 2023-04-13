@@ -1,0 +1,54 @@
+@import './reset';
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+$font-form: 'PT Sans', sans-serif;
+
+.form{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    font-family: $font-form;
+    padding: 2%;
+    border: 2px solid rgb(184, 179, 179,50%);
+    box-shadow: 5px 5px 20px 2px rgb(184, 179, 179,50%) inset;
+    &__h1{
+        font-size: 0.9rem;
+    }
+    &__label{
+        font-size: 0.7rem;
+    }
+    &__select{
+        border: 1px solid black;
+        font-size: 0.8rem;
+        &_s_option{
+       
+        }
+    }
+    &__input-text{
+        border: 1px solid rgb(0, 0, 0);
+        font-size: 0.8rem;
+        &:hover{
+            background-color: rgb(184, 179, 179,50%);
+            cursor: pointer;
+        }
+    }
+    &__button{
+        border:none;
+        background-color: grey;
+        margin-top: 5px;
+        display: inline-block;
+        width: 20%;
+        color: white;
+        font-size: 0.7rem;
+        padding: 1%;
+    }
+    &__input-submit{
+        margin-top: 5px;
+        background-color: blue;
+        display: inline-block;
+        width: 20%;
+        color: white;
+        font-size: 0.7rem;
+        padding: 1%;
+    }
+
+}

@@ -5,35 +5,35 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../src/css/style.css'>
 </head>
 <body>
-    <h1>Registro de Estudiante</h1>
-    <button>Agregar estudiante</button>
-    <form onsubmit="guardar(event)">
-        <h1>Registro de estudiante</h1>
-        <label>Tipo de identificación:</label>
-        <select>
-            <option>Cédula</option>
-            <option>Tarjeta identidad</option>
-            <option>Pasaporte</option>
+    <h1 class="titulo">Registro de Estudiante</h1>
+    <button class="button-addEstudiante">Agregar estudiante</button>
+    <form class="form"  onsubmit="guardar(event)">
+        <h1 class="form__h1">Registro de estudiante</h1>
+        <label class="form__label">Tipo de identificación:</label>
+        <select class="form__select">
+            <option class="form__select__option">Cédula</option>
+            <option class="form__select__option">Tarjeta identidad</option>
+            <option class="form__select__option">Pasaporte</option>
         </select>
-        <label>Número de identificación:</label>
-        <input type="text">
-        <label>Nombres</label>
-        <input type="text">
-        <label>Apellidos:</label>
-        <input type="text">
-        <label>Celular:</label>
-        <input type="text">
-        <label>Correo Electrónico:</label>
-        <input type="text">
-        <label>Usuario de Linkedln:</label>
-        <input type="text">
-        <label>Usuario de Github:</label>
-        <input type="text">
-        <button>Cerrar</button>
-        <input type="submit" value="Guardar">
+        <label class="form__label">Número de identificación:</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Nombres</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Apellidos:</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Celular:</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Correo Electrónico:</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Usuario de Linkedln:</label>
+        <input class="form__input-text" type="text">
+        <label class="form__label">Usuario de Github:</label>
+        <input class="form__input-text" type="text">
+        <button class="form__button">Cerrar</button>
+        <input  class="form__input-submit" type="submit" value="Guardar">
     </form>
     
     <!-- <script src='main.js'></script> -->
