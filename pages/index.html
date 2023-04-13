@@ -8,9 +8,12 @@
     <link rel='stylesheet' type='text/css' media='screen' href='../src/css/style.css'>
 </head>
 <body>
-    <h1 class="titulo">Registro de Estudiante</h1>
+    
+    <h1 class="titulo">Registro de Estudiantes</h1>
     <button class="button-addEstudiante">Agregar estudiante</button>
-    <form class="form"  onsubmit="guardar(event)">
+    <div class="modal">
+
+    <form class="form">
         <h1 class="form__h1">Registro de estudiante</h1>
         <label class="form__label">Tipo de identificación:</label>
         <select class="form__select">
@@ -32,11 +35,12 @@
         <input class="form__input-text" type="text">
         <label class="form__label">Usuario de Github:</label>
         <input class="form__input-text" type="text">
-        <button class="form__button">Cerrar</button>
+        <input type="button" class="form__button-cerrar" value="Cerrar"></button>
         <input  class="form__input-submit" type="submit" value="Guardar">
     </form>
-    
-    <!-- <script src='main.js'></script> -->
+ 
+    </div>
+    <script src='../dist/index.js'></script>
    
 </body>
 </html>

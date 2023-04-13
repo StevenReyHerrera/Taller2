@@ -3,6 +3,7 @@
     que nos estorben y en todos los navegadores se vean correctamente
 */
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo+Mono&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -83,14 +84,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.titulo {
+  font-family: "Chivo Mono", monospace;
+  font-weight: bold;
+}
+
+.button-addEstudiante {
+  background-color: #0095dd;
+  color: white;
+  padding: 1%;
+  margin-top: 2%;
+  border-radius: 0.2rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
 .form {
-  width: 25%;
-  display: flex;
+  height: 70%;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+  display: none;
   flex-direction: column;
   font-family: "PT Sans", sans-serif;
   padding: 2%;
-  border: 2px solid rgba(184, 179, 179, 0.5);
-  box-shadow: 5px 5px 20px 2px rgba(184, 179, 179, 0.5) inset;
+  border: 2px solid rgba(255, 232, 232, 0.904);
+  box-shadow: 5px 5px 20px 2px rgba(134, 128, 128, 0.5) inset;
+  animation: fadeIn 0.5s;
+  transform-origin: center center;
 }
 .form__h1 {
   font-size: 0.9rem;
@@ -106,11 +139,7 @@ body {
   border: 1px solid rgb(0, 0, 0);
   font-size: 0.8rem;
 }
-.form__input-text:hover {
-  background-color: rgba(184, 179, 179, 0.5);
-  cursor: pointer;
-}
-.form__button {
+.form__button-cerrar {
   border: none;
   background-color: grey;
   margin-top: 5px;
@@ -128,6 +157,27 @@ body {
   color: white;
   font-size: 0.7rem;
   padding: 1%;
+}
+
+.closing {
+  animation-name: closeEffect;
+}
+
+@keyframes closeEffect {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -100%) scale(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
