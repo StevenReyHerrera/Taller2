@@ -62,6 +62,7 @@ form.addEventListener('submit', (event) => __awaiter(void 0, void 0, void 0, fun
                 modal.style.display = 'none';
                 form.classList.remove('closing');
                 form.reset();
+                window.location.reload();
             }, 300);
         }
         else {
@@ -92,12 +93,16 @@ const fillTable = () => __awaiter(void 0, void 0, void 0, function* () {
         const row = document.createElement('tr');
         table.appendChild(row);
         const currentStudent = data[i];
-        Object.keys(currentStudent).forEach((propiedad, index) => {
+        Object.keys(currentStudent).slice(1, 9).forEach((propiedad, index) => {
             const value = currentStudent[propiedad];
             const cell = document.createElement('td');
             cell.textContent = value.toString();
             row.appendChild(cell);
         });
+        const botonDelete = document.createElement('button');
+        botonDelete.setAttribute('class', 'container-table__table__button-delete');
+        botonDelete.textContent = 'delete';
+        row.appendChild(botonDelete);
     }
 });
 fillTable();

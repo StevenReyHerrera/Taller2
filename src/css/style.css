@@ -178,5 +178,25 @@ body {
     opacity: 1;
   }
 }
+.container-table {
+  margin-top: 3%;
+}
+.container-table__table th {
+  width: 120px;
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table tr {
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table td {
+  border: 1px solid black;
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table__button-delete {
+  width: 50px;
+  background-color: red;
+  color: white;
+  border-radius: 0.5rem;
+}
 
 /*# sourceMappingURL=style.css.map */
