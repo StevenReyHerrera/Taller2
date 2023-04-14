@@ -16,3 +16,103 @@ buttonClose.onclick = () => {
     }, 300);
   };
   
+
+  interface student{
+    _id:number;
+    tipoIdentificacion:string,
+    identificacion:number,
+    nombres:string,
+    apellidos:string,
+    celular:number,
+    correo:string,
+    userLinkedin:string,
+    userGitHub:string
+}
+
+
+const postData=async(url:string,data:student)=>{
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    }
+    const response= await fetch(url,options)
+    if (!response.ok) { // Si la respuesta indica que hubo un error, lanzar excepción
+      throw new Error('Hubo un error al crear el estudiante');
+    }
+    return response
+}
+
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const message = document.querySelector('.form__message');
+    const student = {
+      _id: parseInt((document.querySelector('[name="identificacion"]') as HTMLInputElement).value),
+      tipoIdentificacion: (document.querySelector('[name="tipoIdentificacion"]') as HTMLSelectElement).value,
+      identificacion: parseInt((document.querySelector('[name="identificacion"]') as HTMLInputElement).value),
+      nombres: (document.querySelector('[name="nombres"]') as HTMLInputElement).value,
+      apellidos: (document.querySelector('[name="apellidos"]') as HTMLInputElement).value,
+      celular: parseInt((document.querySelector('[name="celular"]') as HTMLInputElement).value),
+      correo: (document.querySelector('[name="correo"]') as HTMLInputElement).value,
+      userLinkedin: (document.querySelector('[name="userLinkedin"]') as HTMLInputElement).value,
+      userGitHub: (document.querySelector('[name="userGitHub"]') as HTMLInputElement).value,
+    };
+    form.classList.add('closing');
+    try {
+      const response = await postData('http://localhost:5000/student', student);
+      if (response.ok) {
+        message!.textContent = 'creado exitosamente';
+        setTimeout(() => {
+          form.style.display = 'none';
+          modal.style.display = 'none';
+          form.classList.remove('closing');
+          form.reset();
+        }, 300);
+      } else {
+        message!.textContent = 'Hubo un error al crear el estudiante';
+      }
+    } catch (error) {
+      message!.textContent = 'El usuario ya existe';
+    }
+  });
+  
+
+  const getData = async (url: string) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Hubo un problema al obtener los datos');
+      }
+      const data = await response.json();
+      return data
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fillTable = async () => {
+    const data: student[] = await getData('http://localhost:5000/getStudents');
+    const table = document.querySelector('.container-table__table') as HTMLTableElement;
+  
+    for (let i = 0; i < data.length; i++) {
+      const row = document.createElement('tr');
+      table.appendChild(row);
+  
+      const currentStudent = data[i];
+      Object.keys(currentStudent).forEach((propiedad, index) => {
+        const value = currentStudent[propiedad as keyof student];
+        const cell = document.createElement('td');
+        cell.textContent = value.toString();
+        row.appendChild(cell);
+      });
+    }
+  };
+  
+  
+  
+  
+  
+  
+fillTable()
