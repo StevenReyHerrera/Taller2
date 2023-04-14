@@ -70,6 +70,7 @@ form.addEventListener('submit', async (event) => {
           modal.style.display = 'none';
           form.classList.remove('closing');
           form.reset();
+          window.location.reload();
         }, 300);
       } else {
         message!.textContent = 'Hubo un error al crear el estudiante';
@@ -99,14 +100,17 @@ form.addEventListener('submit', async (event) => {
     for (let i = 0; i < data.length; i++) {
       const row = document.createElement('tr');
       table.appendChild(row);
-  
       const currentStudent = data[i];
-      Object.keys(currentStudent).forEach((propiedad, index) => {
+      Object.keys(currentStudent).slice(1,9).forEach((propiedad, index) => { 
         const value = currentStudent[propiedad as keyof student];
         const cell = document.createElement('td');
         cell.textContent = value.toString();
         row.appendChild(cell);
       });
+      const botonDelete=document.createElement('button');
+      botonDelete.setAttribute('class','container-table__table__button-delete')
+      botonDelete.textContent='delete';
+      row.appendChild(botonDelete)
     }
   };
   
