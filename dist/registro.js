@@ -29,12 +29,15 @@ const postData = (url, data) => __awaiter(void 0, void 0, void 0, function* () {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
         }
     };
     const response = yield fetch(url, options);
     if (!response.ok) { // Si la respuesta indica que hubo un error, lanzar excepción
-        throw new Error('Hubo un error al crear el estudiante');
+        if (response.status === 409) {
+            throw new Error('El estudiante ya existe');
+        }
     }
     return response;
 });
@@ -42,19 +45,18 @@ form.addEventListener('submit', (event) => __awaiter(void 0, void 0, void 0, fun
     event.preventDefault();
     const message = document.querySelector('.form__message');
     const student = {
-        _id: parseInt(document.querySelector('[name="identificacion"]').value),
-        tipoIdentificacion: document.querySelector('[name="tipoIdentificacion"]').value,
-        identificacion: parseInt(document.querySelector('[name="identificacion"]').value),
+        tipoIdentificacion: parseInt(document.querySelector('[name="tipoIdentificacion"]').value),
+        numeroIdentificacion: parseInt(document.querySelector('[name="identificacion"]').value),
         nombres: document.querySelector('[name="nombres"]').value,
         apellidos: document.querySelector('[name="apellidos"]').value,
         celular: parseInt(document.querySelector('[name="celular"]').value),
         correo: document.querySelector('[name="correo"]').value,
-        userLinkedin: document.querySelector('[name="userLinkedin"]').value,
-        userGitHub: document.querySelector('[name="userGitHub"]').value,
+        linkedin: document.querySelector('[name="userLinkedin"]').value,
+        github: document.querySelector('[name="userGitHub"]').value,
     };
     form.classList.add('closing');
     try {
-        const response = yield postData('http://localhost:5000/student', student);
+        const response = yield postData('https://apiestudiantes.maosystems.dev/estudiantes', student);
         if (response.ok) {
             message.textContent = 'creado exitosamente';
             setTimeout(() => {
@@ -65,17 +67,20 @@ form.addEventListener('submit', (event) => __awaiter(void 0, void 0, void 0, fun
                 window.location.reload();
             }, 300);
         }
-        else {
-            message.textContent = 'Hubo un error al crear el estudiante';
-        }
     }
     catch (error) {
-        message.textContent = 'El usuario ya existe';
+        message.textContent = `${error}`;
     }
 }));
 const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
+    const options = {
+        headers: {
+            method: 'GET',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+    };
     try {
-        const response = yield fetch(url);
+        const response = yield fetch(url, options);
         if (!response.ok) {
             throw new Error('Hubo un problema al obtener los datos');
         }
@@ -87,8 +92,9 @@ const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const fillTable = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield getData('http://localhost:5000/getStudents');
+    const data = yield getData('https://apiestudiantes.maosystems.dev/estudiantes');
     const table = document.querySelector('.container-table__table');
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
         const row = document.createElement('tr');
         table.appendChild(row);
@@ -103,7 +109,7 @@ const fillTable = () => __awaiter(void 0, void 0, void 0, function* () {
         botonDelete.setAttribute('class', 'container-table__table__button-delete');
         botonDelete.textContent = 'delete';
         botonDelete.onclick = () => {
-            deleteRow(data[i]._id);
+            /* deleteRow(data[i]._id) */
         };
         row.appendChild(botonDelete);
     }
@@ -129,3 +135,8 @@ const deleteRow = (id) => {
     }
 };
 fillTable();
+const editEstudiante = () => {
+    const botonEdit = document.querySelector('.button-editEstudiante');
+    botonEdit.onclick = () => {
+    };
+};

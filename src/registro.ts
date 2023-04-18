@@ -18,8 +18,7 @@ buttonClose.onclick = () => {
   
 
   interface student{
-    _id:number;
-    tipoIdentificacion:string,
+    tipoIdentificacion:number,
     identificacion:number,
     nombres:string,
     apellidos:string,
@@ -30,18 +29,23 @@ buttonClose.onclick = () => {
 }
 
 
-const postData=async(url:string,data:student)=>{
+const postData=async(url:string,data:{})=>{
     const options = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
         }
     }
     const response= await fetch(url,options)
     if (!response.ok) { // Si la respuesta indica que hubo un error, lanzar excepción
-      throw new Error('Hubo un error al crear el estudiante');
+      if(response.status===409){
+        throw new Error('El estudiante ya existe');
+      }
+      
     }
+    
     return response
 }
 
@@ -50,19 +54,20 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const message = document.querySelector('.form__message');
     const student = {
-      _id: parseInt((document.querySelector('[name="identificacion"]') as HTMLInputElement).value),
-      tipoIdentificacion: (document.querySelector('[name="tipoIdentificacion"]') as HTMLSelectElement).value,
-      identificacion: parseInt((document.querySelector('[name="identificacion"]') as HTMLInputElement).value),
+      tipoIdentificacion: parseInt((document.querySelector('[name="tipoIdentificacion"]') as HTMLSelectElement).value),
+      numeroIdentificacion: parseInt((document.querySelector('[name="identificacion"]') as HTMLInputElement).value),
       nombres: (document.querySelector('[name="nombres"]') as HTMLInputElement).value,
       apellidos: (document.querySelector('[name="apellidos"]') as HTMLInputElement).value,
       celular: parseInt((document.querySelector('[name="celular"]') as HTMLInputElement).value),
       correo: (document.querySelector('[name="correo"]') as HTMLInputElement).value,
-      userLinkedin: (document.querySelector('[name="userLinkedin"]') as HTMLInputElement).value,
-      userGitHub: (document.querySelector('[name="userGitHub"]') as HTMLInputElement).value,
+      linkedin: (document.querySelector('[name="userLinkedin"]') as HTMLInputElement).value,
+      github: (document.querySelector('[name="userGitHub"]') as HTMLInputElement).value,
     };
+    
     form.classList.add('closing');
     try {
-      const response = await postData('http://localhost:5000/student', student);
+      const response = await postData('https://apiestudiantes.maosystems.dev/estudiantes', student);
+      
       if (response.ok) {
         message!.textContent = 'creado exitosamente';
         setTimeout(() => {
@@ -72,31 +77,38 @@ form.addEventListener('submit', async (event) => {
           form.reset();
           window.location.reload();
         }, 300);
-      } else {
-        message!.textContent = 'Hubo un error al crear el estudiante';
-      }
+      } 
     } catch (error) {
-      message!.textContent = 'El usuario ya existe';
+      message!.textContent = `${error}`;
     }
   });
   
 
   const getData = async (url: string) => {
+    const options={
+      headers: {
+        method:'GET',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+      }
+
+    }
     try {
-      const response = await fetch(url);
+      const response = await fetch(url,options);
+     
       if (!response.ok) {
         throw new Error('Hubo un problema al obtener los datos');
       }
       const data = await response.json();
+     
       return data
     } catch (error) {
       console.log(error);
     }
   };
   const fillTable = async () => {
-    const data: student[] = await getData('http://localhost:5000/getStudents');
+    const data: student[] = await getData('https://apiestudiantes.maosystems.dev/estudiantes');
     const table = document.querySelector('.container-table__table') as HTMLTableElement;
-  
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
       const row = document.createElement('tr');
       table.appendChild(row);
@@ -111,7 +123,7 @@ form.addEventListener('submit', async (event) => {
       botonDelete.setAttribute('class','container-table__table__button-delete')
       botonDelete.textContent='delete';
       botonDelete.onclick = () => {
-        deleteRow(data[i]._id)
+        /* deleteRow(data[i]._id) */
       };
       row.appendChild(botonDelete)
     }
@@ -139,3 +151,10 @@ form.addEventListener('submit', async (event) => {
   }
   
 fillTable()
+
+const editEstudiante=()=>{
+  const botonEdit= document.querySelector('.button-editEstudiante') as HTMLButtonElement;
+  botonEdit.onclick=()=>{
+    
+  }
+}

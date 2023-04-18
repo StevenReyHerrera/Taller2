@@ -17,9 +17,9 @@
         <h1 class="form__h1">Registro de estudiante</h1>
         <label class="form__label">Tipo de identificación:</label>
         <select class="form__select" name="tipoIdentificacion">
-            <option class="form__select__option">Cédula</option>
-            <option class="form__select__option">Tarjeta identidad</option>
-            <option class="form__select__option">Pasaporte</option>
+            <option class="form__select__option" value="1">Cédula</option>
+            <option class="form__select__option" value="2">Tarjeta identidad</option>
+            <option class="form__select__option" value="3">Pasaporte</option>
         </select>
         <label class="form__label" >Número de identificación:</label>
         <input class="form__input-text" name="identificacion" type="number" required>
@@ -32,14 +32,40 @@
         <label class="form__label">Correo Electrónico:</label>
         <input class="form__input-text" name="correo" type="email" required>
         <label class="form__label">Usuario de Linkedln:</label>
-        <input class="form__input-text" name="userLinkedin" type="text" required>
+        <input class="form__input-text" name="userLinkedin" type="email" required>
         <label class="form__label">Usuario de Github:</label>
-        <input class="form__input-text" name="userGitHub" type="text" required>
+        <input class="form__input-text" name="userGitHub" type="email" required>
         <input type="button" class="form__button-cerrar" value="Cerrar"></button>
         <input  class="form__input-submit" type="submit" value="Guardar">
         <span class="form__message"></span>
     </form>
     </div>
+    <button class="button-editEstudiante">Editar estudiante</button>
+    <form class="form-update">
+        <label class="form-update__label" for="">id estudiante</label>
+        <input class="form-update__input" type="number" required min="1">
+        <label class="form-update__label" for="">nombres</label>
+        <input class="form-update__input" type="text" required>
+        <label class="form-update__label" for="">apellidos</label>
+        <input class="form-update__input" type="text" required>
+        <label class="form-update__label" for="">celular</label>
+        <input class="form-update__input" type="number" required>
+        <label class="form-update__label" for="">correo</label>
+        <input class="form-update__input" type="email" required>
+        <label class="form-update__label" for="">linkedin</label>
+        <input class="form-update__input" type="email" required>
+        <label class="form-update__label" for="">github</label>
+        <input class="form-update__input" type="email" required>
+        <input class="form-update__input-submit" type="submit" value="actualizar">
+        
+    </form>
+
+
+
+
+
+
+
 
     <div class="container-table">
         <table class="container-table__table">
