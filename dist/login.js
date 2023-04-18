@@ -13,10 +13,16 @@ loginForm.addEventListener("submit", (event) => __awaiter(void 0, void 0, void 0
     event.preventDefault();
     const identifacion = document.getElementById("identificacion").value;
     const correo = document.getElementById("email").value;
-    getToken("https://apiestudiantes.maosystems.dev/tokens", {
-        identificacion: identifacion,
-        correo: correo,
-    });
+    try {
+        const response = yield getToken("https://apiestudiantes.maosystems.dev/tokens", { identificacion: identifacion, correo: correo });
+        if (response.ok) {
+            const token = yield response.text();
+            localStorage.setItem('token', token);
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 }));
 const getToken = (url, data) => __awaiter(void 0, void 0, void 0, function* () {
     const options = {
@@ -26,19 +32,9 @@ const getToken = (url, data) => __awaiter(void 0, void 0, void 0, function* () {
             "Content-Type": "application/json",
         },
     };
-    const message = document.getElementById("message");
-    try {
-        const response = yield fetch(url, options);
-        if (!response.ok) {
-            throw new Error("Error al obtener el token");
-        }
-        const token = yield response.text();
-        localStorage.setItem("token", token);
-        console.log(token);
-        message.textContent = "";
-        window.location.href = "./registro.html";
+    const response = yield fetch(url, options);
+    if (!response) {
+        throw new Error("Error al obtener el token");
     }
-    catch (error) {
-        message.textContent = "Error";
-    }
+    return response;
 });
