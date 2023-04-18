@@ -199,4 +199,31 @@ body {
   border-radius: 0.5rem;
 }
 
+.login-form {
+  border: 1px solid black;
+  height: 200px;
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 150px;
+}
+.login-form__label {
+  text-align: center;
+  display: block;
+  margin-top: 2%;
+}
+.login-form__input {
+  border: 1px solid black;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 3%;
+}
+.login-form__input-submit {
+  width: 20%;
+  padding: 1%;
+  margin-left: 40%;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  margin-top: 5%;
+}
+
 /*# sourceMappingURL=style.css.map */

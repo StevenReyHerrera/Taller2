@@ -10,7 +10,7 @@ buttonAdd.onclick=()=>{
 buttonClose.onclick = () => {
     form.classList.add('closing'); // Agregar clase closing
     setTimeout(() => {
-      form.style.display = 'none'; // Ocultar formulario después de 0.5 segundos
+      form.style.display = 'none'; // Ocultar formulario después de 0.3 segundos
       modal.style.display = 'none'; 
       form.classList.remove('closing'); // Eliminar clase closing
     }, 300);
@@ -107,16 +107,35 @@ form.addEventListener('submit', async (event) => {
         cell.textContent = value.toString();
         row.appendChild(cell);
       });
-      const botonDelete=document.createElement('button');
+      const botonDelete=document.createElement('button') as HTMLButtonElement;
       botonDelete.setAttribute('class','container-table__table__button-delete')
       botonDelete.textContent='delete';
+      botonDelete.onclick = () => {
+        deleteRow(data[i]._id)
+      };
       row.appendChild(botonDelete)
     }
   };
   
-  
-  
-  
-  
+  const deleteData=async(url:string)=>{
+    const options={
+        method:'DELETE',    
+    }
+    const response= await fetch(url,options)
+    if(!response){
+        throw new Error('Hubo un error al eliminar el estudiante');    
+    }
+    return response;
+  }
+
+  const deleteRow=(id:number)=>{
+     const url:string=`http://localhost:5000/deleteStudent/${id}`
+     try{
+        deleteData(url)
+        window.location.reload();
+     }catch(err){
+        console.log(err)
+     }   
+  }
   
 fillTable()
