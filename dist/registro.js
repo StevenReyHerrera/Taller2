@@ -12,9 +12,21 @@ const buttonAdd = document.querySelector('.button-addEstudiante');
 const form = document.querySelector('.form');
 const buttonClose = document.querySelector('.form__button-cerrar');
 const modal = document.querySelector('.modal');
+const botonEdit = document.querySelector('.button-edit');
+const formUpdate = document.querySelector('.form-update');
+//botones principales
 buttonAdd.onclick = () => {
     form.style.display = 'flex';
     modal.style.display = 'flex';
+    formUpdate.style.display = 'none';
+};
+botonEdit.onclick = () => {
+    if (formUpdate.style.display === 'block') {
+        formUpdate.style.display = 'none';
+    }
+    else {
+        formUpdate.style.display = 'block';
+    }
 };
 buttonClose.onclick = () => {
     form.classList.add('closing'); // Agregar clase closing
@@ -92,7 +104,7 @@ const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const fillTable = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield getData('https://apiestudiantes.maosystems.dev/estudiantes');
+    const data = yield getData('https://apiestudiantes.maosystems.dev/estudiantes/');
     const table = document.querySelector('.container-table__table');
     console.log(data);
     for (let i = 0; i < data.length; i++) {
@@ -135,8 +147,43 @@ const deleteRow = (id) => {
     }
 };
 fillTable();
-const editEstudiante = () => {
-    const botonEdit = document.querySelector('.button-editEstudiante');
-    botonEdit.onclick = () => {
+const editStudent = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        }
     };
-};
+    const labelMessage = document.querySelector('.form-update__message');
+    try {
+        const response = yield fetch(`https://apiestudiantes.maosystems.dev/estudiantes/${id}`, options);
+        if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error('Estudiante no encontrado');
+            }
+            throw new Error('Error al actualizar');
+        }
+        const message = yield response.json();
+        labelMessage.textContent = `${message.message}`;
+        setTimeout(() => {
+            formUpdate.style.display = 'none';
+            formUpdate.reset();
+        }, 2000);
+    }
+    catch (err) {
+        labelMessage.textContent = `${err}`;
+    }
+});
+formUpdate.addEventListener('submit', (event) => {
+    event.preventDefault();
+    editStudent(parseInt(document.getElementById('id-estudiante').value), {
+        "nombres": document.querySelector('[name="nombres-update"]').value,
+        "apellidos": document.querySelector('[name="apellidos-update"]').value,
+        "celular": parseInt(document.querySelector('[name="celular-update"]').value),
+        "correo": document.querySelector('[name="correo-update"]').value,
+        "linkedin": document.querySelector('[name="linkedin-update"]').value,
+        "github": document.querySelector('[name="github-update"]').value,
+    });
+});

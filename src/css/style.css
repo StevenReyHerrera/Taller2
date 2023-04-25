@@ -89,7 +89,7 @@ body {
   font-weight: bold;
 }
 
-.button-addEstudiante, .button-editEstudiante {
+.button-addEstudiante, .button-edit {
   background-color: #0095dd;
   color: white;
   padding: 1%;
@@ -238,15 +238,19 @@ body {
   background-image: linear-gradient(45deg, #dbdbf1, #86a6b3);
 }
 .form-update__label {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-align: center;
-  color: white;
+  color: black;
+  display: block;
 }
 .form-update__input {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   width: 70%;
   margin-left: 15%;
   background-color: white;
+}
+.form-update__input:focus {
+  outline: none;
 }
 .form-update__input-submit {
   border-radius: 0.2rem;

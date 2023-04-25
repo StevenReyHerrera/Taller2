@@ -2,10 +2,26 @@ const buttonAdd=document.querySelector('.button-addEstudiante') as HTMLButtonEle
 const form= document.querySelector('.form') as HTMLFormElement;
 const buttonClose=document.querySelector('.form__button-cerrar') as HTMLButtonElement;
 const modal = document.querySelector('.modal') as HTMLDivElement;
+const botonEdit= document.querySelector('.button-edit') as HTMLButtonElement;
+const formUpdate=document.querySelector('.form-update') as HTMLFormElement;
+
+//botones principales
 buttonAdd.onclick=()=>{
     form.style.display='flex';
-    modal.style.display = 'flex';  
+    modal.style.display = 'flex'; 
+    formUpdate.style.display='none';
 }
+
+botonEdit.onclick=()=>{
+  
+  if(formUpdate.style.display==='block'){
+    formUpdate.style.display='none';
+  }else{
+    formUpdate.style.display='block'
+  }    
+  
+}
+
 
 buttonClose.onclick = () => {
     form.classList.add('closing'); // Agregar clase closing
@@ -19,17 +35,17 @@ buttonClose.onclick = () => {
 
   interface student{
     tipoIdentificacion:number,
-    identificacion:number,
+    numeroIdentificacion:number,
     nombres:string,
     apellidos:string,
     celular:number,
     correo:string,
-    userLinkedin:string,
-    userGitHub:string
+    linkedin:string,
+    github:string
 }
 
 
-const postData=async(url:string,data:{})=>{
+const postData=async(url:string,data:student)=>{
     const options = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -106,7 +122,7 @@ form.addEventListener('submit', async (event) => {
     }
   };
   const fillTable = async () => {
-    const data: student[] = await getData('https://apiestudiantes.maosystems.dev/estudiantes');
+    const data: student[] = await getData('https://apiestudiantes.maosystems.dev/estudiantes/');
     const table = document.querySelector('.container-table__table') as HTMLTableElement;
     console.log(data);
     for (let i = 0; i < data.length; i++) {
@@ -152,9 +168,50 @@ form.addEventListener('submit', async (event) => {
   
 fillTable()
 
-const editEstudiante=()=>{
-  const botonEdit= document.querySelector('.button-editEstudiante') as HTMLButtonElement;
-  botonEdit.onclick=()=>{
-    
+ 
+ 
+const editStudent=async(id:number,data:{})=>{
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+    }
   }
+  const labelMessage=document.querySelector('.form-update__message');
+  try{
+    const response=await fetch(`https://apiestudiantes.maosystems.dev/estudiantes/${id}`,options)
+    if(!response.ok){
+      if(response.status===404){
+        throw new Error('Estudiante no encontrado')
+      }
+      throw new Error('Error al actualizar')
+    }
+    const message=await response.json()
+    
+    labelMessage!.textContent=`${message.message}`
+    setTimeout(()=>{
+      formUpdate.style.display='none'
+      formUpdate.reset();
+    },2000)
+  }catch(err){
+    labelMessage!.textContent=`${err}`
+  }
+  
 }
+
+formUpdate.addEventListener('submit',(event)=>{
+  event.preventDefault();
+  editStudent(parseInt((document.getElementById('id-estudiante') as HTMLInputElement).value),
+    {
+      "nombres": (document.querySelector('[name="nombres-update"]')as HTMLInputElement).value,
+      "apellidos": (document.querySelector('[name="apellidos-update"]')as HTMLInputElement).value,
+      "celular": parseInt((document.querySelector('[name="celular-update"]')as HTMLInputElement).value),
+      "correo": (document.querySelector('[name="correo-update"]')as HTMLInputElement).value,
+      "linkedin": (document.querySelector('[name="linkedin-update"]')as HTMLInputElement).value,
+      "github": (document.querySelector('[name="github-update"]')as HTMLInputElement).value,
+    }
+  )
+})
+
