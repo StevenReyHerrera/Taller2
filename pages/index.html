@@ -3,40 +3,19 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../src/css/style.css'>
 </head>
 <body>
-    <h1>Registro de Estudiante</h1>
-    <button>Agregar estudiante</button>
-    <form onsubmit="guardar(event)">
-        <h1>Registro de estudiante</h1>
-        <label>Tipo de identificación:</label>
-        <select>
-            <option>Cédula</option>
-            <option>Tarjeta identidad</option>
-            <option>Pasaporte</option>
-        </select>
-        <label>Número de identificación:</label>
-        <input type="text">
-        <label>Nombres</label>
-        <input type="text">
-        <label>Apellidos:</label>
-        <input type="text">
-        <label>Celular:</label>
-        <input type="text">
-        <label>Correo Electrónico:</label>
-        <input type="text">
-        <label>Usuario de Linkedln:</label>
-        <input type="text">
-        <label>Usuario de Github:</label>
-        <input type="text">
-        <button>Cerrar</button>
-        <input type="submit" value="Guardar">
+    <form class="login-form" >
+        <label class="login-form__label"for="identificacion">Identificación</label>
+        <input class="login-form__input"type="number" id="identificacion">
+        <label class="login-form__label"for="">Correo</label>
+        <input class="login-form__input"type="email" id="email">
+        <input class="login-form__input-submit" type="submit" value="LogIn">
+        <label class="login-form-label" id="message"></label>
     </form>
-    
-    <!-- <script src='main.js'></script> -->
-   
+    <script src='../dist/index.js'></script>
 </body>
 </html>

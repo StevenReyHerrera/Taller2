@@ -1,0 +1,266 @@
+/*
+    Estilos generales para que las etiquetas no contengan propiedades
+    que nos estorben y en todos los navegadores se vean correctamente
+*/
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo+Mono&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+video {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+p a {
+  display: inline;
+}
+
+li {
+  list-style-type: none;
+}
+
+table, tr, td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+  hyphens: auto;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+::selection {
+  background-color: var(--negro);
+  color: var(--blanco);
+}
+
+form, input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  display: block;
+}
+
+body {
+  font-family: var(--tipo-principal);
+  font-size: 100%;
+  line-height: 1.4em;
+  min-height: 100vh;
+  background-color: var(--blanco);
+  color: var(--negro);
+  hyphens: auto;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.titulo {
+  font-family: "Chivo Mono", monospace;
+  font-weight: bold;
+}
+
+.button-addEstudiante, .button-edit {
+  background-color: #0095dd;
+  color: white;
+  padding: 1%;
+  margin-top: 2%;
+  border-radius: 0.2rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.form {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  font-family: "PT Sans", sans-serif;
+  padding: 2%;
+  border: 2px solid rgba(255, 232, 232, 0.904);
+  box-shadow: 5px 5px 20px 2px rgba(134, 128, 128, 0.5) inset;
+  animation: fadeIn 0.5s;
+  transform-origin: center center;
+}
+.form__h1 {
+  font-size: 0.9rem;
+}
+.form__label {
+  font-size: 0.7rem;
+}
+.form__select {
+  border: 1px solid black;
+  font-size: 0.8rem;
+}
+.form__input-text {
+  border: 1px solid rgb(0, 0, 0);
+  font-size: 0.8rem;
+}
+.form__button-cerrar {
+  border: none;
+  background-color: grey;
+  margin-top: 5px;
+  display: inline-block;
+  width: 20%;
+  color: white;
+  font-size: 0.7rem;
+  padding: 1%;
+}
+.form__input-submit {
+  margin-top: 5px;
+  background-color: blue;
+  display: inline-block;
+  width: 20%;
+  color: white;
+  font-size: 0.7rem;
+  padding: 1%;
+}
+
+.closing {
+  animation-name: closeEffect;
+}
+
+@keyframes closeEffect {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -100%) scale(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.container-table {
+  margin-top: 3%;
+}
+.container-table__table th {
+  width: 120px;
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table tr {
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table td {
+  border: 1px solid black;
+  border: 2px solid rgb(187, 187, 187);
+}
+.container-table__table__button-delete {
+  width: 50px;
+  background-color: red;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.login-form {
+  border: 1px solid black;
+  height: 200px;
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 150px;
+}
+.login-form__label {
+  text-align: center;
+  display: block;
+  margin-top: 2%;
+}
+.login-form__input {
+  border: 1px solid black;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 3%;
+}
+.login-form__input-submit {
+  width: 20%;
+  padding: 1%;
+  margin-left: 40%;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  margin-top: 5%;
+}
+
+.form-update {
+  display: none;
+  border: 2px solid;
+  width: 30%;
+  margin-left: 35%;
+  border-width: 3px;
+  border-style: solid;
+  border-image-source: linear-gradient(to right, #c8c7d6, #262627);
+  border-image-slice: 1;
+  background-image: linear-gradient(45deg, #dbdbf1, #86a6b3);
+}
+.form-update__label {
+  font-size: 1rem;
+  text-align: center;
+  color: black;
+  display: block;
+}
+.form-update__input {
+  border-bottom: 1px solid black;
+  width: 70%;
+  margin-left: 15%;
+  background-color: white;
+}
+.form-update__input:focus {
+  outline: none;
+}
+.form-update__input-submit {
+  border-radius: 0.2rem;
+  background-color: #242525;
+  color: white;
+  padding: 0.5%;
+  margin-top: 2%;
+  width: 30%;
+  margin-left: 35%;
+  margin-bottom: 2%;
+}
+
+/*# sourceMappingURL=style.css.map */

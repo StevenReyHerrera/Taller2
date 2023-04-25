@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Registro estudiantes</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../src/css/style.css'>
+</head>
+<body>
+    
+    <h1 class="titulo">Registro de Estudiantes</h1>
+    <button class="button-addEstudiante">Agregar estudiante</button>
+    
+    <div class="modal">
+    <form class="form">
+        <h1 class="form__h1">Registro de estudiante</h1>
+        <label class="form__label">Tipo de identificación:</label>
+        <select class="form__select" name="tipoIdentificacion">
+            <option class="form__select__option" value="1">Cédula</option>
+            <option class="form__select__option" value="2">Tarjeta identidad</option>
+            <option class="form__select__option" value="3">Pasaporte</option>
+        </select>
+        <label class="form__label" >Número de identificación:</label>
+        <input class="form__input-text" name="identificacion" type="number" required>
+        <label class="form__label">Nombres:</label>
+        <input class="form__input-text" name="nombres" type="text" required>
+        <label class="form__label">Apellidos:</label>
+        <input class="form__input-text" name="apellidos" type="text" required>
+        <label class="form__label">Celular:</label>
+        <input class="form__input-text" name="celular" type="number" required>
+        <label class="form__label">Correo Electrónico:</label>
+        <input class="form__input-text" name="correo" type="email" required>
+        <label class="form__label">Usuario de Linkedln:</label>
+        <input class="form__input-text" name="userLinkedin" type="email" required>
+        <label class="form__label">Usuario de Github:</label>
+        <input class="form__input-text" name="userGitHub" type="email" required>
+        <input type="button" class="form__button-cerrar" value="Cerrar"></button>
+        <input  class="form__input-submit" type="submit" value="Guardar">
+        <span class="form__message"></span>
+    </form>
+    </div>
+    <button class="button-edit">Editar estudiante</button>
+    <form class="form-update">
+        <label class="form-update__label" for="">id estudiante</label>
+        <input id="id-estudiante" class="form-update__input" type="number" required min="1">
+        <label class="form-update__label" for="">nombres</label>
+        <input name="nombres-update" class="form-update__input" type="text" required>
+        <label class="form-update__label" for="">apellidos</label>
+        <input name="apellidos-update" class="form-update__input" type="text" required>
+        <label class="form-update__label" for="">celular</label>
+        <input name="celular-update" class="form-update__input" type="number" required>
+        <label class="form-update__label" for="">correo</label>
+        <input name="correo-update" class="form-update__input" type="email" required>
+        <label class="form-update__label" for="">linkedin</label>
+        <input name="linkedin-update" class="form-update__input" type="email" required>
+        <label class="form-update__label" for="">github</label>
+        <input name="github-update" class="form-update__input" type="email" required>
+        <input class="form-update__input-submit" type="submit" value="actualizar">
+        <label class="form-update__message"></label>
+    </form>
+
+
+
+
+
+
+
+
+    <div class="container-table">
+        <table class="container-table__table">
+            <th>Tipo de identificación</th>
+            <th>Número de identificacion</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Celular</th>
+            <th>Correo Electrónico</th>
+            <th>Usuario de Linkedln</th>
+            <th>Usuario de Github</th>
+        </table>
+    </div>
+    <script src='../dist/registro.js'></script>
+   
+</body>
+</html>
