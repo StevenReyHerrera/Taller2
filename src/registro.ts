@@ -116,7 +116,7 @@ form.addEventListener('submit', async (event) => {
       }
       const data = await response.json();
      
-      return data
+      return data.data
     } catch (error) {
       console.log(error);
     }
@@ -124,12 +124,12 @@ form.addEventListener('submit', async (event) => {
   const fillTable = async () => {
     const data: student[] = await getData('https://apiestudiantes.maosystems.dev/estudiantes/');
     const table = document.querySelector('.container-table__table') as HTMLTableElement;
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
+      console.log(i)
       const row = document.createElement('tr');
       table.appendChild(row);
       const currentStudent = data[i];
-      Object.keys(currentStudent).slice(1,9).forEach((propiedad, index) => { 
+      Object.keys(currentStudent).forEach((propiedad, index) => { 
         const value = currentStudent[propiedad as keyof student];
         const cell = document.createElement('td');
         cell.textContent = value.toString();

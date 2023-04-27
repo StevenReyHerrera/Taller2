@@ -97,7 +97,7 @@ const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
             throw new Error('Hubo un problema al obtener los datos');
         }
         const data = yield response.json();
-        return data;
+        return data.data;
     }
     catch (error) {
         console.log(error);
@@ -106,12 +106,12 @@ const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
 const fillTable = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield getData('https://apiestudiantes.maosystems.dev/estudiantes/');
     const table = document.querySelector('.container-table__table');
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
+        console.log(i);
         const row = document.createElement('tr');
         table.appendChild(row);
         const currentStudent = data[i];
-        Object.keys(currentStudent).slice(1, 9).forEach((propiedad, index) => {
+        Object.keys(currentStudent).forEach((propiedad, index) => {
             const value = currentStudent[propiedad];
             const cell = document.createElement('td');
             cell.textContent = value.toString();
